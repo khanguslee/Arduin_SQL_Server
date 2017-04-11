@@ -19,9 +19,9 @@
 			</tr>
 			<?php 
 				// Retrieve all records and display them
-				$result = mysql_query("SELECT * FROM machine_time ORDER BY id ASC") or die(mysql_error());
+				$result = mysqli_query($dbh, "SELECT * FROM machine_time ORDER BY id ASC") or die(mysql_error());
 				
-				while ($row = mysql_fetch_array($result, MYSQL_ASSOC)){
+				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)){
 					echo '<tr>';
 					echo '	<td>'.$row["id"].'</td>';
 					echo '	<td>'.$row["machine"].'</td>';
