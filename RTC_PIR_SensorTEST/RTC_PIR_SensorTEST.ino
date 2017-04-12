@@ -4,7 +4,12 @@ RTC_DS1307 rtc;
 // Test code for DS1307 Data logger shield for Arduino
 // 459 bytes (22%)
 
+// Declare variables
+const int pirPin = 8;       // Pin for pir motion sensor
+int pirState = LOW, value = 0;
+
 void setup() {
+  pinMode(pirPin, INPUT);   // Declare pir motion sensor as input
   Serial.begin(9600);
 
   if (!rtc.begin()){
@@ -20,6 +25,19 @@ void setup() {
 }
 
 void loop() {
+  value = digitalRead(pirPin);
+  if (value == HIGH && pirState == LOW){
+    Serial.print("Motion detected on ");
+    printDateTime();
+    pirState = HIGH;
+  } else if(value == LOW && pirState == HIGH){
+    Serial.print("Motion ended on ");
+    printDateTime();
+    pirState = LOW;
+  }
+  Serial.print("");
+}
+void printDateTime(){
   // Get the current date and time
   DateTime now = rtc.now();
 
@@ -37,7 +55,6 @@ void loop() {
   Serial.print(":");
   printTime(now.second());
   Serial.println(".000");
-  delay(1000);
 }
 
 void printTime(int digits){

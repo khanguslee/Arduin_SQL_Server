@@ -72,7 +72,7 @@ void loop() {
       pirState = HIGH;
 
       // Make HTTP Request
-      client.print("GET /arduino_test/add_data.php?");
+      client.print("GET /add_data.php?");
       client.print("machine=");
       client.print("TRUMPF");
       client.print("&");
@@ -97,7 +97,5 @@ void loop() {
     client.connect(server, 3306);
   }
   Ethernet.maintain();
-  
-
 }
 
