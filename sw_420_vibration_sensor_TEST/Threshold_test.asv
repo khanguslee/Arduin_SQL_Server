@@ -1,0 +1,52 @@
+clc
+clear all
+close all
+
+filename = 'TEST_Threshold_1.dat';
+threshold_1 = csvread(filename);
+
+x = 1:length(threshold_1);
+
+figure
+plot(x,threshold_1)
+ylim([-0.5 1.5])
+title('Sensor output when threshold = 1')
+xlabel('n')
+ylabel('Sensor digital output')
+
+filename = 'TEST_Threshold_2.dat';
+threshold_2 = csvread(filename);
+
+x = 1:length(threshold_2);
+
+figure
+plot(x,threshold_2)
+ylim([-0.5 1.5])
+title('Sensor output when threshold = 2')
+xlabel('n')
+ylabel('Sensor digital output')
+
+
+filename = 'TEST_Threshold_3.dat';
+threshold_3 = csvread(filename);
+
+x = 1:length(threshold_3);
+
+figure
+plot(x,threshold_3)
+ylim([-0.5 1.5])
+title('Sensor output when threshold = 3')
+xlabel('n')
+ylabel('Sensor digital output')
+
+filename = 'TEST_Threshold_3.dat';
+threshold_3 = csvread(filename);
+
+x = 1:length(threshold_3);
+
+figure
+plot(x,threshold_3)
+ylim([-0.5 1.5])
+title('Sensor output when threshold = 5')
+xlabel('n')
+ylabel('Sensor digital output')

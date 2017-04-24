@@ -19,9 +19,15 @@
 			</tr>
 			<?php 
 				// Retrieve all records and display them
-				$result = mysqli_query($dbh, "SELECT * FROM machine_time ORDER BY id ASC") or die(mysql_error());
+				$sql = "SELECT * FROM machine_time ORDER BY id ASC"
+				$result = sqlsrv_query($connect, $sql);
 				
-				while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)){
+				if ($result === false) {
+					// Print error
+					die(print_r(sqlsrv_errors(), true));
+				}
+				
+				while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
 					echo '<tr>';
 					echo '	<td>'.$row["id"].'</td>';
 					echo '	<td>'.$row["machine"].'</td>';
@@ -29,6 +35,8 @@
 					echo '	<td>'.$row["time_end"].'</td>';
 					echo '	<td>'.$row["length_time"].'</td>';
 				}
+				
+				sqlsrv_free_stmt($result);
 			?>
 		</table>
 	</body>

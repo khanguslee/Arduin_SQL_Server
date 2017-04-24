@@ -1,6 +1,9 @@
 // Ethernet Interface Module TEST
 #include <UIPEthernet.h>
 #include <SPI.h>
+#include <RTClib.h>
+#include <Wire.h>
+RTC_DS1307 rtc;
 
 // Send predetermined data to an offline MySQL Database hosted with WAMP
 
@@ -35,12 +38,21 @@ void setup() {
   pinMode(pirPin, INPUT);   // Declare pir motion sensor as input
 
   Serial.begin(9600);
-
+  if (!rtc.begin()){
+    Serial.println("Could not find RTC");
+  }
+  // Configure RTC with the current 
+  if (!rtc.isrunning()){
+    Serial.println("RTC is NOT running!");
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  }
+  
   // Check if the device is able to connect to the network
   if (Ethernet.begin(mac) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP, connecting with static IP address instead");
   } else {
     Ethernet.begin(mac, ip);
+    
   }
 
   // Print network details
@@ -77,22 +89,22 @@ void loop() {
       pirState = HIGH;
 
       // Make HTTP Request
-      client.print("GET /arduino_test/add_data.php?");
-      client.print("machine=");
-      client.print("TRUMPF");
-      client.print("&");
-      client.print("start=");
-      client.print("2017-04-10%2014:00:00.000"); // %20 is a space
-      client.print("&");
-      client.print("end=");
-      client.print("2017-04-10%2014:00:30.000");
-      client.print("&");
-      client.print("length=");
-      client.print("30");
-      client.println(" HTTP/1.1");
-      client.print("Host: ");
-      client.println(server);
-      client.println("Connection: close\r\n");\
+//      client.print("GET /arduino_test/add_data.php?");
+//      client.print("machine=");
+//      client.print("TRUMPF");
+//      client.print("&");
+//      client.print("start=");
+//      client.print("2017-04-10%2014:00:00.000"); // %20 is a space
+//      client.print("&");
+//      client.print("end=");
+//      client.print("2017-04-10%2014:00:30.000");
+//      client.print("&");
+//      client.print("length=");
+//      client.print("30");
+//      client.println(" HTTP/1.1");
+//      client.print("Host: ");
+//      client.println(server);
+//      client.println("Connection: close\r\n");
       // Disconnect from the server
       client.stop();
 

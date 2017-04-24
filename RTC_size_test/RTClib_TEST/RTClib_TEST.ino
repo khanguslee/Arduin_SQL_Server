@@ -21,21 +21,21 @@ void setup() {
 
 void loop() {
   // Get the current date and time
-  DateTime now = rtc.now();
+  DateTime start = rtc.now();
 
   // Print out in format 2000-01-01 00:00:00.000
   // Note that we can not get milliseconds so will always be 000 ms
-  Serial.print(now.year(), DEC);
+  Serial.print(start.year(), DEC);
   Serial.print("-");
-  printTime(now.month());
+  printTime(start.month());
   Serial.print("-");
-  printTime(now.day());
+  printTime(start.day());
   Serial.print(" ");
-  printTime(now.hour());
+  printTime(start.hour());
   Serial.print(":");
-  printTime(now.minute());
+  printTime(start.minute());
   Serial.print(":");
-  printTime(now.second());
+  printTime(start.second());
   Serial.println(".000");
   delay(1000);
 }
